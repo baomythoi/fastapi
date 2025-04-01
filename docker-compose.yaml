@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   fastapi:
     build: .
@@ -13,6 +14,7 @@ services:
       - "traefik.http.routers.fastapi.entrypoints=websecure"
       - "traefik.http.routers.fastapi.tls=true"
       - "traefik.http.routers.fastapi.tls.certresolver=myresolver"
+      - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
 networks:
   default:
     external:
