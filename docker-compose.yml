@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  fastapi:
+    build: .
+    container_name: fastapi
+    restart: always
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fastapi.rule=Host(`api.vietnamaisolution.com`)"
+      - "traefik.http.routers.fastapi.entrypoints=websecure"
+      - "traefik.http.routers.fastapi.tls=true"
+      - "traefik.http.routers.fastapi.tls.certresolver=myresolver"
+    expose:
+      - 8000
+networks:
+  default:
+    external:
+      name: traefik_default
